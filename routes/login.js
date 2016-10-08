@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 
 router.get('/', function(req, res, next){
-    res.render('login', {status:''});
+    res.redirect('login', {status:''});
 });
 
 router.post('/', function(req, res, next){
@@ -20,18 +20,19 @@ router.post('/', function(req, res, next){
     console.log(next);
 
     if(errors) {
-            res.render('login', {status: 'invalid login', errors: errors});
+            res.redirect('login', {status: 'invalid login', errors: errors});
     } else {
         mongoose.model('User').find({
             email: email,
             password: password
             }, function(err, user){
             if(err){
-                res.render('login');
+                res.redirect('login');
             } else {
                 res.redirect('home');
             }
         });
+        res.redirect('home');
     }
 });
 
