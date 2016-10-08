@@ -1,8 +1,8 @@
 var express = require('express');
-var router = express.Routers();
+var router = express.Router();
 
 router.get('/error', function(req, res){
-    res.redirect('error');
+    res.render('error');
 });
 
 module.exports = router;
