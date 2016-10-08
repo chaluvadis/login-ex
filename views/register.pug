@@ -1,0 +1,12 @@
+extend layout
+block content
+    form(method='post')
+        .login-container
+            h1 Register User
+            include user
+            p.row
+                span
+                    input(type="submit" class="btn" value="Register" id="register" name="register")
+                span(style="margin-left: 10px;")
+                    a(href="/" class="link") Login
+    include errors

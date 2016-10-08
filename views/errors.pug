@@ -1,0 +1,8 @@
+if errors
+    .error-container
+        .error-messages
+            h3 Clear the below errors 
+            ol
+                for error in errors
+                    li!= error.msg
+        
