@@ -6,6 +6,8 @@ var validator = require('express-validator');
 
 var session = require('express-session');
 
+var helmet = require('helmet');
+
 var KEY = 'meet up example';
 
 var sess_options = {
@@ -31,6 +33,13 @@ var user = require('./models/user');
 
 // set up server 
 var app = express();
+
+//helmet configuration
+app.use(helmet());
+//cross site scripting issues
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.use(helmet.hidePoweredBy());
 
 //views
 app.set('view engine', 'pug');
