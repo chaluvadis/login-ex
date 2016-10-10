@@ -8,19 +8,13 @@ var session = require('express-session');
 
 var helmet = require('helmet');
 
-var KEY = 'meet up example';
+var bcrypt = require('bcryptjs');
 
-var sess_options = {
-    secret: KEY,
-    cookie : {},
-    resave: false
-}
+var KEY = 'meet up example';
 
 //passport js config
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
-var PORT = 3000;
 
 //routes initialization
 var login = require('./routes/login');
@@ -48,6 +42,12 @@ app.set('views', path.join(__dirname, 'views'));
 //static file configuration
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+    secret: KEY,
+    cookie : {},
+    resave: false
+}));
+
 //body-parser configuration
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,10 +61,9 @@ app.use('/register', register);
 app.use('/home', home);
 app.use('/error', error);
 
-//sessio use
+app.set('PORT', (process.env.PORT||3000));
 
-app.use(session(sess_options));
 // run the server to listen req
-app.listen(PORT, function(){
-    console.log('Server running at ' + PORT);
+app.listen(app.get('PORT'), function(){
+    console.log('Server running at ' + app.get('PORT'));
 });
