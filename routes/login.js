@@ -30,12 +30,13 @@ router.post('/', function(req, res, next){
         var hash = bcrypt.hashSync(password, salt);
 
         mongoose.model('User').find({
-            "email": email,
-            "password": hash
+            'email': email,
+            'password': hash
             }, function(err, user){
             if(err){
                 //res.render('error');
             } else {
+                console.log(user);
                 res.render('home');
             }
         });
